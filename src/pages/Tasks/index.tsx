@@ -1,10 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-const TaskList = () => {
-  return (
-    <div>Tasks</div>
-  )
-}
+import TaskForm from '../../components/TaskForm';
+import TaskList from '../../components/TaskList';
 
+const Tasks = () => {
+	return (
+		<>
+			<TaskForm />
+			<TaskList />
+		</>
+	);
+};
 
-export default TaskList
+export default Tasks;

@@ -1,13 +1,6 @@
 // create a typescript file that handles every logic for the context and provides with hooks to use the context
 import React, { createContext, useReducer, useContext } from 'react';
-
-// interface for task object
-export interface Task {
-	id: string;
-	title: string;
-	description: string;
-	status: 'ToDo' | 'InProgress' | 'InQA' | 'Done';
-}
+import { ITask } from '../../types';
 
 enum TaskReducerActions {
 	ADD_TASK = 'ADD_TASK',
@@ -15,12 +8,12 @@ enum TaskReducerActions {
 	EDIT_TASK = 'EDIT_TASK',
 }
 
-type TReducer = { action: TaskReducerActions.ADD_TASK | TaskReducerActions.REMOVE_TASK | TaskReducerActions.EDIT_TASK; payload: Task };
+type TReducer = { action: TaskReducerActions.ADD_TASK | TaskReducerActions.REMOVE_TASK | TaskReducerActions.EDIT_TASK; payload: ITask };
 
-const TaskContext = createContext({ tasks: [] as Task[] });
-const TaskActions = createContext({ addTask: (task: Task) => {}, removeTask: (id: string) => {}, editTask: (task: Task) => {} });
+const TaskContext = createContext({ tasks: [] as ITask[] });
+const TaskActions = createContext({ addTask: (task: ITask) => {}, removeTask: (id: string) => {}, editTask: (task: ITask) => {} });
 
-const TaskReducer: React.Reducer<Task[], TReducer> = (state, { action, payload }) => {
+const TaskReducer: React.Reducer<ITask[], TReducer> = (state, { action, payload }) => {
 	switch (action) {
 		case TaskReducerActions.ADD_TASK:
 			return [...state, payload];
@@ -36,7 +29,7 @@ const TaskReducer: React.Reducer<Task[], TReducer> = (state, { action, payload }
 const TaskProvider = ({ children }: { children: React.ReactNode }) => {
 	const [tasks, dispatch] = useReducer(TaskReducer, []);
 
-	const addTask = (task: Task): void => {
+	const addTask = (task: ITask): void => {
 		dispatch({ action: TaskReducerActions.ADD_TASK, payload: task });
 	};
 
@@ -44,7 +37,7 @@ const TaskProvider = ({ children }: { children: React.ReactNode }) => {
 		dispatch({ action: TaskReducerActions.REMOVE_TASK, payload: { id, title: '', description: '', status: 'Done' } });
 	};
 
-	const editTask = (task: Task): void => {
+	const editTask = (task: ITask): void => {
 		dispatch({ action: TaskReducerActions.EDIT_TASK, payload: task });
 	};
 

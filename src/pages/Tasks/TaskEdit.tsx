@@ -1,17 +1,11 @@
 // get task id from params and edit accordingly in typescript
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import TaskForm from '../../components/TaskForm';
 
 const TaskEdit = () => {
-	const { id } = useParams();
-
-	return (
-		<div>
-			Task Edit
-			<br />
-			Task ID: {id}
-		</div>
-	);
+	const { state } = useLocation();
+	return <TaskForm task={state?.task} edit />;
 };
 
 export default TaskEdit;

@@ -6,8 +6,11 @@ const Header = () => {
 	const location = useLocation();
 
 	return (
-		<div>
-			<Link to="/">Task Management</Link> &gt; {location.pathname === '/task/:id' ? 'Edit' : 'Home'}
+		<div style={{ background: '#1776ba', color: '#FFFFFF', fontSize: 22, padding: "8px 24px" }}>
+			<Link to="/" style={{ color: '#FFFFFF', textDecoration: 'none' }}>
+				Task Management
+			</Link>{' '}
+			&gt; {location.pathname === '/task' ? 'Edit' : 'Home'}
 		</div>
 	);
 };
